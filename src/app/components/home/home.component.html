@@ -1,0 +1,97 @@
+<!-- <h3 class="ml-3 h4 mt-5">Recently Play</h3>
+<div class="d-flex flex-wrap text-dark">
+  <div
+    class="card m-3 text-white-50"
+    *ngFor="let recentlyPlay of recentlyPlays; let i = index"
+    style="max-width: 200px; background-color: #101010"
+  >
+    <div *ngIf="i < 10" class="border border-dark">
+      <img
+        [src]="recentlyPlay.track.album.images[1].url"
+        class="card-img-top"
+        alt="..."
+        style="max-width: 200px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ recentlyPlay.track.name }}</h5>
+        <!-- <p class="card-text">Artist: {{ recentlyPlay.artists[0].name }}</p>
+        <p class="card-text">
+          Release:
+          {{ recentlyPlay.release_date | date }}
+        </p> -->
+<!-- </div>
+    </div>
+  </div>
+</div> -->
+
+<h3 class="ml-3 h4 mt-5">New Release</h3>
+<div class="d-flex flex-wrap text-dark">
+  <div
+    class="card m-3 text-white-50"
+    *ngFor="let newRelease of newRleases; let i = index"
+    style="max-width: 200px; background-color: #101010"
+  >
+    <div *ngIf="i < 10" class="border border-dark">
+      <img
+        [src]="newRelease.images[1].url"
+        class="card-img-top"
+        alt="..."
+        style="max-width: 200px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ newRelease.name | summary: 12 }}</h5>
+        <p class="card-text">Artist: {{ newRelease.artists[0].name }}</p>
+        <p class="card-text">
+          Release:
+          {{ newRelease.release_date | date }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 class="ml-3 h4">Feature Playlists</h3>
+<div class="d-flex flex-wrap text-dark">
+  <div
+    class="card m-3 text-white-50"
+    *ngFor="let featurePlaylist of featurePlayLists; let i = index"
+    style="max-width: 200px; background-color: #101010"
+  >
+    <div *ngIf="i < 10" class="border border-dark">
+      <img
+        [src]="featurePlaylist.images[0].url"
+        class="card-img-top"
+        alt="..."
+        style="max-width: 200px"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ featurePlaylist.name | summary: 12 }}</h5>
+        <p class="card-text">
+          Desc : {{ featurePlaylist.description | summary: 28 }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 class="ml-3 h4 mt-4">Categories</h3>
+
+<div class="d-flex flex-wrap text-dark">
+  <div
+    class="card m-3 text-white-50"
+    *ngFor="let category of categories; let i = index"
+    style="max-width: 200px; background-color: #101010"
+  >
+    <div *ngIf="i < 10" class="border border-dark">
+      <img
+        [src]="category.icons[0].url"
+        class="card-img-top"
+        alt="..."
+        style="max-width: 200px"
+      />
+      <div class="card-img-overlay pt-5 mt-5">
+        <h5 class="card-title pt-5">
+          {{ category.name | summary: 12 }}
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>

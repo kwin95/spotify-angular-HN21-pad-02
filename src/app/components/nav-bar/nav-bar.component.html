@@ -1,0 +1,43 @@
+<div class="nav-bar text-center">
+  <ul class="nav flex-column">
+    <li class="nav-item mt-3">
+      <a
+        class="navbar-brand mb-3 logo-link"
+        routerLink="home"
+        style="color: #ccc"
+      >
+        <img src="../../../assets/spotify_logo.png" alt="" class="logo" />
+        NgSpotify
+      </a>
+    </li>
+    <li class="nav-item text-left">
+      <a class="nav-link" routerLink="home" routerLinkActive="active"
+        ><i class="fas fa-home px-2"></i> Home</a
+      >
+    </li>
+
+    <li class="nav-item text-left">
+      <a class="nav-link" routerLink="search" routerLinkActive="active">
+        <i class="fas fa-search px-2"></i> Search</a
+      >
+    </li>
+    <li class="nav-item text-left">
+      <a class="nav-link" routerLink="home" routerLinkActive="active"
+        ><i class="far fa-credit-card px-2"></i> Your Library</a
+      >
+    </li>
+  </ul>
+  <p class="border-bottom mx-4">Your Playlists</p>
+
+  <div class="overflow-auto" style="max-height: 500px">
+    <ul class="list-group" *ngFor="let playlist of myPlaylists; let i = index">
+      <a
+        [routerLink]="['playlist', playlist.id]"
+        class="categories-list text-decoration-none"
+        ><li class="list-group-item">
+          {{ playlist.name }}
+        </li></a
+      >
+    </ul>
+  </div>
+</div>

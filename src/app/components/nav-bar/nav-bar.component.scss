@@ -1,0 +1,25 @@
+.nav-bar {
+    background-color: #000;
+    height:100vh;
+    color: #ccc;
+    width: 200px; 
+    z-index: 1;
+}
+.nav-link{
+    color: #ccc;
+    background-color: #000;
+    border: none;
+}
+.logo-link{
+    font-weight: bold;
+}
+.logo{
+    max-width: 50px;
+}
+
+.categories-list >*{
+    background-color: #000;
+    text-align: left;
+    color:#ccc;
+   
+}
