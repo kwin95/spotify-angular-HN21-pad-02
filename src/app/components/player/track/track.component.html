@@ -1,0 +1,21 @@
+<div class="text-white position-relative track-detail">
+  <div class="d-flex ml-5 position-absolute track-detail-info">
+    <img src="{{ trackUrl }}" class="mr-5 track-detail-img" alt="..." />
+    <div class="d-flex flex-column justify-content-end pb-5">
+      <p class="h6 text-capitalize">Song</p>
+      <p class="h1" style="font-size: 96px">{{ trackName }}</p>
+      <p class="h6 text-capitalize">Release: {{ releaseDate }}</p>
+      <p class="card-text h6">
+        Artist: {{ artistName }} •
+        {{ timeSong | date: "mm : ss" }}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="pt-5 track-detail-btn pl-5">
+  <label for="">Like this song:</label>
+  <button class="btn btn-outline-success mx-5 rounded-circle">
+    <i class="far fa-heart"></i>
+  </button>
+  <button class="btn btn-success">Listen on Spotify</button>
+</div>

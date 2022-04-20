@@ -1,0 +1,20 @@
+<div class="dropdown">
+  <button
+    [ngClass]="{ show: show }"
+    class="btn btn-dark dropdown-toggle btn"
+    type="button"
+    (click)="show = !show"
+  >
+    <i class="fas fa-user-alt"> </i> {{ title }}
+  </button>
+  <div class="dropdown-menu" [ngClass]="{ show: show }" (click)="show = false">
+    <button
+      class="dropdown-item"
+      *ngFor="let option of options"
+      [ngClass]="{ show: show }"
+      (click)="onSelect(option.value)"
+    >
+      {{ option.name }}
+    </button>
+  </div>
+</div>

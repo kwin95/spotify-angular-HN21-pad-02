@@ -1,0 +1,10 @@
+<div class="d-flex">
+  <app-nav-bar class="position-fixed"></app-nav-bar>
+  <app-dropdown-menu
+    title="{{ userInfo }}"
+    [options]="options"
+    (select)="onSelect($event)"
+    class="button-info"
+  ></app-dropdown-menu>
+  <router-outlet style="margin-left: 200px"></router-outlet>
+</div>

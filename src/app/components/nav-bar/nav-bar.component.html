@@ -11,25 +11,30 @@
       </a>
     </li>
     <li class="nav-item text-left">
-      <a class="nav-link" routerLink="home" routerLinkActive="active"
+      <a class="nav-link" routerLink="home" routerLinkActive="select"
         ><i class="fas fa-home px-2"></i> Home</a
       >
     </li>
 
     <li class="nav-item text-left">
-      <a class="nav-link" routerLink="search" routerLinkActive="active">
+      <a class="nav-link" routerLink="search" routerLinkActive="select">
         <i class="fas fa-search px-2"></i> Search</a
       >
     </li>
     <li class="nav-item text-left">
-      <a class="nav-link" routerLink="home" routerLinkActive="active"
+      <a class="nav-link" routerLink="home" routerLinkActive="select"
         ><i class="far fa-credit-card px-2"></i> Your Library</a
+      >
+    </li>
+    <li class="nav-item text-left">
+      <a class="nav-link" routerLink="collections" routerLinkActive="select"
+        ><i class="fas fa-heart text-danger px-2"></i> Liked Songs</a
       >
     </li>
   </ul>
   <p class="border-bottom mx-4">Your Playlists</p>
 
-  <div class="overflow-auto" style="max-height: 500px">
+  <div class="overflow-auto" style="max-height: 500px" id="scroll">
     <ul class="list-group" *ngFor="let playlist of myPlaylists; let i = index">
       <a
         [routerLink]="['playlist', playlist.id]"
