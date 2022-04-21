@@ -25,6 +25,7 @@ export class PlaylistDetailComponent implements OnInit {
   type: string;
   tracks: any;
   bgImage: string = "";
+  isFollowedTrack: any = [];
   ngOnInit() {
     let token = localStorage.getItem("token");
     this.spotifyService.defineAccessToken(token);
@@ -38,7 +39,6 @@ export class PlaylistDetailComponent implements OnInit {
           this.playlistDesc = data.description;
           this.playlistFollow = data.followers.total;
           this.totalSong = data.tracks.items.length;
-          console.log(this.playlist);
         },
         function (err) {
           console.error(err);
@@ -52,22 +52,15 @@ export class PlaylistDetailComponent implements OnInit {
           } else {
             this.bgImage = data[0]["url"];
           }
-
-          console.log(data);
         },
         function (err) {
           console.error(err);
         }
       );
-      this.spotifyService.getPlayListTrack(id).then(
-        (data) => {
-          this.tracks = data.items;
-          console.log(this.tracks);
-        },
-        function (err) {
-          console.error(err);
-        }
-      );
+      this.spotifyService.getPlayListTrack(id).then((data) => {
+        this.tracks = data.items;
+        return data.items;
+      });
     });
     this.checkFollowPlaylist();
   }

@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "Spotify-App",
+      "public": "dist/Spotify-App",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

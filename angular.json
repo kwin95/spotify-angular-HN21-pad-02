@@ -122,8 +122,13 @@
               "devServerTarget": "Spotify-App:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "Spotify-App"
 }

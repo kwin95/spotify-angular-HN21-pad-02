@@ -35,6 +35,7 @@ export class SpotifyService {
   }
 
   authozireAccount() {
+    // let redirect_uri = "https://thanghk95-hn21-fr-pad-02.firebaseapp.com/login";
     let redirect_uri = "http://localhost:4200/login";
     let authEndPoint = "https://accounts.spotify.com/authorize?";
     let responseType = "&response_type=token&show_dialog=true";

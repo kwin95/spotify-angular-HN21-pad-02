@@ -12,6 +12,9 @@ export class CollectionsComponent implements OnInit {
   likeCollection: any;
   totalSong: any;
   userName: string;
+  listId: any = [];
+  isFollow: boolean[] = [];
+
   ngOnInit() {
     this.spotifyService.getInforUser().then((data) => {
       this.userName = data.display_name;
@@ -23,8 +26,6 @@ export class CollectionsComponent implements OnInit {
       (data) => {
         this.likeCollection = data.items;
         this.totalSong = data.items.length;
-
-        console.log(this.likeCollection);
       },
       function (err) {
         console.error(err);
@@ -32,22 +33,20 @@ export class CollectionsComponent implements OnInit {
     );
   }
   removeLikeSongs(id: string[]) {
-    console.log(id);
     let token = localStorage.getItem("token");
     let songId: any = [];
     songId.push(id);
+
     this.spotifyService.removeLikeSong(songId, token);
     this.getLikedSong();
   }
 
-  checkLikeSong(id: string) {
+  checkLikeSong(id: string[]) {
     let songId: any = [];
     songId.push(id);
-    this.spotifyService.checkLikedSong(songId).then(
-      (data) => {},
-      function (err) {
-        console.error(err);
-      }
-    );
+    this.spotifyService.checkLikedSong(songId).then((data) => {
+      this.isFollow.push(data[0]);
+    });
+    return this.isFollow[0];
   }
 }
