@@ -34,15 +34,6 @@ export class HomeComponent implements OnInit {
         console.error(err);
       }
     );
-    this.spotifyService.test().then(
-      (data) => {
-        this.test = data;
-        console.log(this.test);
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
 
     this.spotifyService.getFeaturePlaylist().then(
       (data) => {

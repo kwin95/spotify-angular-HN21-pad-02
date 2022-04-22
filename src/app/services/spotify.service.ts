@@ -8,16 +8,18 @@ import { Observable } from "rxjs";
 })
 export class SpotifyService {
   spotifyApi: Spotify.SpotifyWebApiJs = null;
-  private client_Id = "f143bfa6c67845d8a07602e8fb560312";
-  private client_Secret = "60b16bff56814be3ba5d8010fbd6ff10";
+  private client_Id = "ea0624f0dabe4280b66f8f3f257536b8";
+  private client_Secret = "9af17883b2e14c10848f133f09bd9c6a";
+  encoder = btoa(`${this.client_Id}:${this.client_Secret}`);
   public scope = [
     "user-read-currently-playing",
     "user-read-playback-position",
     "user-read-recently-played",
     "user-top-read",
+    "user-follow-read",
+    " user-follow-modify",
     "user-library-modify",
     "user-read-playback-state",
-    "user-top-read",
     "user-modify-playback-state",
     "user-library-read",
     "playlist-read-private",
@@ -26,13 +28,19 @@ export class SpotifyService {
     "playlist-modify-private",
   ];
 
-  encoder = btoa(`${this.client_Id}:${this.client_Secret}`);
   constructor(private http: HttpClient) {
     this.spotifyApi = new Spotify();
   }
-  getToken() {
-    this.spotifyApi.getAccessToken();
-  }
+  // getOAuthToken() {
+  //   const authTokenUrl = `https://accounts.spotify.com/api/token`;
+  //   const body = "grant_type=client_credentials";
+  //   return this.http.post(authTokenUrl, body, {
+  //     headers: new HttpHeaders({
+  //       Authorization: "Basic  " + this.encoder,
+  //       "Content-Type": "application/x-www-form-urlencoded;",
+  //     }),
+  //   });
+  // }
 
   authozireAccount() {
     // let redirect_uri = "https://thanghk95-hn21-fr-pad-02.firebaseapp.com/login";
@@ -124,10 +132,10 @@ export class SpotifyService {
   getAlbumTracks(id: string) {
     return this.spotifyApi.getAlbumTracks(id);
   }
-  getRecent(id: string) {
-    return this.spotifyApi.createPlaylist(id, {
-      name: "New Playlist4",
-      description: "New playlist description",
+  createPlaylist(userId: string, playlistName: string, playlistDesc: string) {
+    return this.spotifyApi.createPlaylist(userId, {
+      name: playlistName,
+      description: playlistDesc,
       public: false,
     });
   }
@@ -137,6 +145,9 @@ export class SpotifyService {
       ["artist", "album", "track", "playlist"],
       { limit: 10 }
     );
+  }
+  searchSong(queryString: string) {
+    return this.spotifyApi.searchTracks(queryString);
   }
   getTrack(id: string) {
     return this.spotifyApi.getTrack(id);
@@ -155,16 +166,18 @@ export class SpotifyService {
   checkLikedSong(id: string[]) {
     return this.spotifyApi.containsMySavedTracks(id);
   }
-  test() {
-    return this.spotifyApi.getArtistRelatedArtists("35HU1GT1q797EwZsP8uduO", {
-      limit: 5,
-    });
-    // return this.spotifyApi.getMyTopArtists();
-  }
+
   getRecentlyPlay() {
     return this.spotifyApi.getMyRecentlyPlayedTracks();
   }
-  getArtistRelated(id: string) {
-    return this.spotifyApi.getArtistRelatedArtists(id);
+  //Follow artist
+  followArtist(id: string[]) {
+    return this.spotifyApi.followArtists(id);
+  }
+  unfollowArtist(id: string[]) {
+    return this.spotifyApi.unfollowArtists(id);
+  }
+  isFollowArtist(id: string[]) {
+    return this.spotifyApi.isFollowingArtists(id);
   }
 }

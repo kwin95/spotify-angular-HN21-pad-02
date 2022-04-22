@@ -1,0 +1,31 @@
+<div class="dialog rounded-top">
+  <h1 mat-dialog-title>Add new Playlist</h1>
+  <div mat-dialog-content>
+    <div class="d-flex justify-content-between">
+      <label>Playlist name: </label>
+      <mat-form-field>
+        <input
+          type="text"
+          class="border border-success rounded-pill pl-3"
+          [(ngModel)]="data.playlistName"
+        />
+      </mat-form-field>
+    </div>
+    <div class="d-flex justify-content-between">
+      <label>Description : </label>
+      <mat-form-field>
+        <input
+          type="text"
+          class="border border-success rounded-pill pl-3"
+          [(ngModel)]="data.playlistDesc"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button class="btn btn-dark ml-5 mr-5" (click)="onNoClick()">Cancel</button>
+    <button class="btn btn bg-success" [mat-dialog-close]="data">
+      Confirm
+    </button>
+  </div>
+</div>

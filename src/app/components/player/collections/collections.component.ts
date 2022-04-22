@@ -1,4 +1,4 @@
-import { ActivatedRoute } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { Component, Input, OnInit } from "@angular/core";
 import { SpotifyService } from "src/app/services/spotify.service";
 
@@ -8,7 +8,10 @@ import { SpotifyService } from "src/app/services/spotify.service";
   styleUrls: ["./collections.component.scss"],
 })
 export class CollectionsComponent implements OnInit {
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(
+    private spotifyService: SpotifyService,
+    private toastr: ToastrService
+  ) {}
   likeCollection: any;
   totalSong: any;
   userName: string;
@@ -32,7 +35,8 @@ export class CollectionsComponent implements OnInit {
       }
     );
   }
-  removeLikeSongs(id: string[]) {
+  removeLikeSongs(id: string[], trackName: string) {
+    this.toastr.warning("have remove from liked", trackName);
     let token = localStorage.getItem("token");
     let songId: any = [];
     songId.push(id);

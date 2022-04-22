@@ -1,109 +1,134 @@
-<div class="text-white position-relative playlist-detail">
-  <div class="d-flex ml-5 position-absolute playlist-detail-info">
-    <img
-      src="{{ bgImage }}"
-      class="mr-5 playlist-detail-img"
-      alt="..."
-      style="max-width: 300px; max-height: 300px"
-    />
-    <!-- <img
+<div class="playlist">
+  <div class="text-white position-relative playlist-detail" *ngIf="playlist">
+    <div class="d-flex ml-5 position-absolute playlist-detail-info">
+      <img
+        src="{{ bgImage }}"
+        class="mr-5 playlist-detail-img"
+        alt="..."
+        style="max-width: 300px; max-height: 300px"
+      />
+      <!-- <img
       *ngIf="coverImg.length === 0"
       src="../../../../assets/Music.jpg"
       class="mr-5 playlist-detail-img"
       alt="..."
       style="max-width: 300px; max-height: 300px"
     /> -->
-    <div class="d-flex flex-column justify-content-end pb-5">
-      <h5 class="card-title text-capitalize">{{ playlist.type }}</h5>
-      <h1>{{ playlist.name }}</h1>
-      <p class="card-text">
-        {{ playlist.description }}
-      </p>
-      <p class="card-text">
-        Spotify • {{ playlistFollow }} ❤ •
-        {{ totalSong }}
-        songs
-      </p>
+      <div class="d-flex flex-column justify-content-end pb-5">
+        <h5 class="card-title text-capitalize">{{ playlist.type }}</h5>
+        <h1>{{ playlist.name }}</h1>
+        <p class="card-text">
+          {{ playlist.description }}
+        </p>
+        <p class="card-text">
+          Spotify • {{ playlistFollow }} ❤ •
+          {{ totalSong }}
+          songs
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="pb-3 playlist-detail-btn">
+    <button class="btn btn-outline-success mr-2 text-center rounded-circle">
+      <i class="fas fa-play-circle"></i>
+    </button>
+    <button
+      *ngIf="!isFollow"
+      type="button"
+      class="btn btn-outline-success"
+      (click)="followPlaylist(playlist.id, playlist.name)"
+    >
+      Follow
+    </button>
+    <button
+      type="button"
+      *ngIf="isFollow"
+      class="btn btn-outline-success"
+      (click)="unfollowPlaylist(playlist.id, playlist.name)"
+    >
+      Following
+    </button>
+  </div>
+
+  <div class="container-fluid playlist-detail-list" *ngIf="totalSong != 0">
+    <table class="table text-white table-borderless">
+      <thead class="" style="background-color: #33001a">
+        <tr class="border-bottom row">
+          <th scope="col" class="col-1">#</th>
+          <th scope="col" class="col-4">TITLE</th>
+          <th scope="col" class="col-4">ALBUM</th>
+          <th scope="col" class="col-1">DATE ADD</th>
+          <th scope="col" class="col-1">LIKE</th>
+          <th scope="col" class="text-center col-1">
+            <i class="fas fa-clock"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let Track of tracks; let i = index">
+        <tr class="border-bottom row">
+          <td scope="row " class="pt-4 col-1">{{ i + 1 }}</td>
+          <td class="d-flex text-left col-4">
+            <div class="mr-3">
+              <img [src]="Track.track.album.images[2].url" alt="" />
+            </div>
+            <div class="d-flex flex-column">
+              <a
+                [routerLink]="['../../track', Track.track.id]"
+                class="text-white"
+                >{{ Track.track.name | summary: 25 }}</a
+              >
+              <a
+                class="text-white"
+                [routerLink]="['../../artist', Track.track.artists[0].id]"
+              >
+                <i class="fas fa-microphone"></i>
+                {{ Track.track.artists[0].name }}
+              </a>
+            </div>
+          </td>
+          <td class="pt-4 col-4">
+            <a
+              [routerLink]="['../../albums', Track.track.album.id]"
+              class="text-white"
+              >{{ Track.track.album.name | summary: 20 }}</a
+            >
+          </td>
+          <td class="pt-4 col-1">{{ Track.added_at | date: "dd/MM/yy" }}</td>
+          <td
+            class="pt-4 col-1"
+            (click)="likeThisTrack(Track.track.id)"
+            style="cursor: pointer"
+          >
+            <i class="far fa-heart ml-3"></i>
+          </td>
+          <td class="pt-4 col-1 text-center">
+            {{ Track.track.duration_ms | date: "mm:ss" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="totalSong === 0">
+    <div class="container-fluid mt-4 ml-5">
+      <div class="rounded-pill bg-white d-flex pr-3" style="width: 400px">
+        <i class="fas fa-search pl-3 pt-2 pr-1" style="font-size: 20px"></i>
+        <input
+          type="text"
+          class="form-control border-0"
+          placeholder=" Search songs"
+          [(ngModel)]="queryString"
+          (input)="searchSong()"
+        />
+        <button *ngIf="queryString != null" class="btn" (click)="clear()">
+          <span style="font-weight: bold">X</span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
-<div class="pb-3 playlist-detail-btn">
-  <button class="btn btn-outline-success mr-2 text-center rounded-circle">
-    <i class="fas fa-play-circle"></i>
-  </button>
-  <button
-    *ngIf="!isFollow"
-    type="button"
-    class="btn btn-outline-success"
-    (click)="followPlaylist(playlist.id)"
-  >
-    Follow
-  </button>
-  <button
-    type="button"
-    *ngIf="isFollow"
-    class="btn btn-outline-success"
-    (click)="unfollowPlaylist(playlist.id)"
-  >
-    Following
-  </button>
-</div>
-
-<div class="container-fluid playlist-detail-list">
-  <table class="table text-white table-borderless">
-    <thead class="sticky-top" style="background-color: #33001a">
-      <tr class="border-bottom row">
-        <th scope="col" class="col-1">#</th>
-        <th scope="col" class="col-4">TITLE</th>
-        <th scope="col" class="col-4">ALBUM</th>
-        <th scope="col" class="col-1">DATE ADD</th>
-        <th scope="col" class="col-1">LIKE</th>
-        <th scope="col" class="text-center col-1">
-          <i class="fas fa-clock"></i>
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let Track of tracks; let i = index">
-      <tr class="border-bottom row">
-        <td scope="row " class="pt-4 col-1">{{ i + 1 }}</td>
-        <td class="d-flex text-left col-4">
-          <div class="mr-3">
-            <img [src]="Track.track.album.images[2].url" alt="" />
-          </div>
-          <div class="d-flex flex-column">
-            <a
-              [routerLink]="['../../track', Track.track.id]"
-              class="text-white"
-              >{{ Track.track.name | summary: 25 }}</a
-            >
-            <a
-              class="text-white"
-              [routerLink]="['../../artist', Track.track.artists[0].id]"
-            >
-              <i class="fas fa-microphone"></i>
-              {{ Track.track.artists[0].name }}
-            </a>
-          </div>
-        </td>
-        <td class="pt-4 col-4">
-          <a
-            [routerLink]="['../../albums', Track.track.album.id]"
-            class="text-white"
-            >{{ Track.track.album.name | summary: 20 }}</a
-          >
-        </td>
-        <td class="pt-4 col-1">{{ Track.added_at | date: "dd/MM/yy" }}</td>
-        <td
-          class="pt-4 col-1"
-          (click)="likeThisTrack(Track.track.id)"
-          style="cursor: pointer"
-        >
-          <i class="far fa-heart ml-3"></i>
-        </td>
-        <td class="pt-4 col-1 text-center">
-          {{ Track.track.duration_ms | date: "mm:ss" }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<ngx-spinner
+  [fullScreen]="false"
+  type="cog"
+  size="medium"
+  [color]="'#1DB954'"
+></ngx-spinner>

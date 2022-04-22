@@ -1,10 +1,16 @@
-<div class="text-white position-relative artist-detail">
+<div class="text-white position-relative artist-detail" *ngIf="artist">
   <div class="d-flex ml-5 position-absolute artist-detail-info">
-    <img src="{{ artistUrl }}" class="mr-5 artist-detail-img" alt="..." />
+    <img
+      src="{{ artist.images[1].url }}"
+      class="mr-5 artist-detail-img"
+      alt="..."
+    />
     <div class="d-flex flex-column justify-content-end pb-5">
       <p class="h6 text-capitalize">Artist</p>
-      <p class="h1" style="font-size: 96px">{{ artistName }}</p>
-      <p class="card-text h6">Spotify • {{ artistFollow }} - followers</p>
+      <p class="h1" style="font-size: 96px">{{ artist.name }}</p>
+      <p class="card-text h6">
+        Spotify • {{ artist.followers.total }} - followers
+      </p>
     </div>
   </div>
 </div>
@@ -15,7 +21,20 @@
   >
     <i class="far fa-play-circle"></i>
   </button>
-  <button class="btn btn-outline-success ml-3">Follow</button>
+  <button
+    class="btn btn-outline-success ml-3"
+    (click)="followArtist(artistId, artist.name)"
+    *ngIf="!isFollowArtist"
+  >
+    Follow
+  </button>
+  <button
+    class="btn btn-outline-success ml-3"
+    (click)="unFollowArtist(artistId, artist.name)"
+    *ngIf="isFollowArtist"
+  >
+    Following
+  </button>
 </div>
 
 <div class="contain-fluid pl-3 pt-4 artist-detail-list">

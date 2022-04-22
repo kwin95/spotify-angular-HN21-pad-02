@@ -17,8 +17,8 @@
 </div>
 <div class="container-fluid collection-detail-list">
   <table class="table text-white table-borderless">
-    <thead class="sticky-top" style="background-color: #33001a">
-      <tr class="border-bottom row">
+    <thead class="" style="background-color: #33001a">
+      <tr class="border-bottom row sticky-top">
         <th scope="col" class="col-1">#</th>
         <th scope="col" class="col-4">TITLE</th>
         <th scope="col" class="col-4">ALBUM</th>
@@ -59,7 +59,7 @@
         <td class="pt-4 col-1">{{ Track.added_at | date: "dd/MM/yy" }}</td>
         <td
           class="pt-4 col-1"
-          (click)="removeLikeSongs(Track.track.id)"
+          (click)="removeLikeSongs(Track.track.id, Track.track.name)"
           style="cursor: pointer"
         >
           <i class="fas fa-heart ml-3 text-success"></i>

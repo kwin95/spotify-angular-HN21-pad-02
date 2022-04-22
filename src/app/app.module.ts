@@ -1,6 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
+import { MatDialogModule } from "@angular/material/dialog";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -16,8 +20,9 @@ import { DropdownMenuComponent } from "./components/player/dropdown-menu/dropdow
 import { ArtistDetailComponent } from "./components/player/artist-detail/artist-detail.component";
 import { AlbumDetailComponent } from "./components/player/album-detail/album-detail.component";
 import { FormsModule } from "@angular/forms";
-import { TrackComponent } from './components/player/track/track.component';
-import { CollectionsComponent } from './components/player/collections/collections.component';
+import { TrackComponent } from "./components/player/track/track.component";
+import { CollectionsComponent } from "./components/player/collections/collections.component";
+import { DialogComponent } from "./components/dialog/dialog.component";
 
 @NgModule({
   declarations: [
@@ -34,9 +39,25 @@ import { CollectionsComponent } from './components/player/collections/collection
     AlbumDetailComponent,
     TrackComponent,
     CollectionsComponent,
+    DialogComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgxSpinnerModule,
+    MatDialogModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      progressBar: true,
+    }),
+  ],
+  entryComponents: [DialogComponent],
   providers: [SpotifyService, NavBarComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

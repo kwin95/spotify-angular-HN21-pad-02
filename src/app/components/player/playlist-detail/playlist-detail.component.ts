@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 
@@ -12,31 +14,42 @@ export class PlaylistDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private spotifyService: SpotifyService,
-    private checkPlayList: NavBarComponent
-  ) {}
+
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
+  ) {
+    this.checkFollowPlaylist();
+  }
+  queryString: string;
   coverImg: any;
   isFollow: any;
   playlist: any = [];
-  playlistType: string;
-  playlistName: string;
-  playlistDesc: string;
+  // playlistType: string;
+  // playlistName: string;
+  // playlistDesc: string;
   playlistFollow: number;
   totalSong: number;
   type: string;
   tracks: any;
   bgImage: string = "";
   isFollowedTrack: any = [];
+  songs: any = [];
   ngOnInit() {
-    let token = localStorage.getItem("token");
-    this.spotifyService.defineAccessToken(token);
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 300);
+    // let token = localStorage.getItem("token");
+    // this.spotifyService.defineAccessToken(token);
     this.route.params.subscribe((p) => {
       let id = p.id;
       this.spotifyService.getPlaylistbyId(id).then(
         (data) => {
           this.playlist = data;
-          this.playlistType = data.type;
-          this.playlistName = data.name;
-          this.playlistDesc = data.description;
+          // this.playlistType = data.type;
+          // this.playlistName = data.name;
+          // this.playlistDesc = data.description;
           this.playlistFollow = data.followers.total;
           this.totalSong = data.tracks.items.length;
         },
@@ -64,11 +77,13 @@ export class PlaylistDetailComponent implements OnInit {
     });
     this.checkFollowPlaylist();
   }
-  followPlaylist(id: string) {
+  followPlaylist(id: string, playlistName: string) {
+    this.toastr.success("followed", playlistName);
     this.spotifyService.followPlaylist(id);
     this.checkFollowPlaylist();
   }
-  unfollowPlaylist(id: string) {
+  unfollowPlaylist(id: string, playlistName: string) {
+    this.toastr.warning("Unfollow", playlistName);
     this.spotifyService.unfollowPlaylist(id);
     this.checkFollowPlaylist();
   }
@@ -103,5 +118,14 @@ export class PlaylistDetailComponent implements OnInit {
     let songId: any = [];
     songId.push(id);
     this.spotifyService.addLikeSong(songId, token);
+  }
+  searchSong() {
+    this.spotifyService.searchSong(this.queryString).then((data) => {
+      this.songs = data.tracks.items;
+      console.log(this.songs);
+    });
+  }
+  clear() {
+    this.queryString = null;
   }
 }

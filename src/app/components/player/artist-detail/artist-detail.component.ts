@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 
 @Component({
@@ -10,22 +11,27 @@ import { SpotifyService } from "src/app/services/spotify.service";
 export class ArtistDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private spotifyService: SpotifyService
+    private spotifyService: SpotifyService,
+    private toastr: ToastrService
   ) {}
   artist: any;
-  artistUrl: string;
-  artistName: string;
-  artistFollow: number;
+  // artistUrl: string;
+  // artistName: string;
+  // artistFollow: number;
   trackOfArtist: any;
+  artistId: string;
+  isFollowArtist: boolean;
   ngOnInit() {
     this.route.params.subscribe((p) => {
       let artistId = p.id;
+      this.isfollowArtist(artistId);
       this.spotifyService.getArtist(artistId).then(
         (data) => {
           this.artist = data;
-          this.artistUrl = data.images[1].url;
-          this.artistName = data.name;
-          this.artistFollow = data.followers.total;
+          // this.artistUrl = data.images[1].url;
+          // this.artistName = data.name;
+          // this.artistFollow = data.followers.total;
+          this.artistId = data.id;
           console.log(this.artist);
         },
         function (err) {
@@ -42,5 +48,27 @@ export class ArtistDetailComponent implements OnInit {
         }
       );
     });
+  }
+  followArtist(id: string, name) {
+    let artistId: string[] = [];
+    artistId.push(id);
+    this.spotifyService.followArtist(artistId);
+    this.toastr.success("followed", name);
+    this.isfollowArtist(id);
+  }
+  isfollowArtist(id: string) {
+    let artistId: string[] = [];
+    artistId.push(id);
+
+    this.spotifyService.isFollowArtist(artistId).then((data) => {
+      this.isFollowArtist = data[0];
+    });
+  }
+  unFollowArtist(id: string, name) {
+    let artistId: string[] = [];
+    artistId.push(id);
+    this.toastr.warning("Unfollowed", name);
+    this.spotifyService.unfollowArtist(artistId);
+    this.isfollowArtist(id);
   }
 }

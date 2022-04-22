@@ -22,8 +22,13 @@
       >
     </li>
     <li class="nav-item text-left">
-      <a class="nav-link" routerLink="home" routerLinkActive="select"
+      <a class="nav-link" routerLink="home"
         ><i class="far fa-credit-card px-2"></i> Your Library</a
+      >
+    </li>
+    <li class="nav-item text-left">
+      <a class="nav-link" style="cursor: pointer" (click)="addNewPlaylist()"
+        ><i class="fas fa-plus-square px-2"></i> Create Playlist</a
       >
     </li>
     <li class="nav-item text-left">

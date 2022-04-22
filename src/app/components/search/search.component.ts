@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
 import { SpotifyService } from "src/app/services/spotify.service";
 
 @Component({
@@ -8,7 +9,10 @@ import { SpotifyService } from "src/app/services/spotify.service";
 })
 export class SearchComponent implements OnInit {
   queryString: string;
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(
+    private spotifyService: SpotifyService,
+    private spinner: NgxSpinnerService
+  ) {}
   resultArtists: any;
   resultPlaylists: any;
   resultAlbums: any;
