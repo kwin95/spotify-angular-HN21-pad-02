@@ -1,0 +1,70 @@
+<div class="login-feature">
+  <div class="text-center py-5">
+    <img
+      src="../../../assets/spotify_logo.png"
+      style="max-width: 100px"
+      alt=""
+    />
+    <span class="h1"> NgSpotify</span>
+  </div>
+  <div class="text-center my-5">
+    <button
+      class="btn btn-success px-5 rounded-pill"
+      (click)="login()"
+      style="width: 150px"
+    >
+      Login
+    </button>
+  </div>
+  <div class="text-center my-5">
+    <button
+      class="btn btn-success px-5 rounded-pill"
+      (click)="isSignUp = !isSignUp"
+    >
+      Signup
+    </button>
+  </div>
+  <br />
+
+  <div class="d-flex flex-column align-items-center" *ngIf="isSignUp">
+    <h2>Create account</h2>
+    <div class="form-group w-25">
+      <label class="control-label">Your name</label>
+      <input type="text" maxlength="50" class="form-control" />
+    </div>
+    <div class="form-group w-25">
+      <label class="control-label">Email</label>
+      <input type="email" maxlength="50" class="form-control" />
+    </div>
+
+    <div class="form-group w-25">
+      <label class="control-label">Password</label>
+      <input
+        type="password"
+        maxlength="25"
+        class="form-control"
+        placeholder="at least 6 characters"
+        length="40"
+      />
+    </div>
+    <div class="form-group w-25">
+      <label class="control-label">Password again</label>
+      <input type="password" maxlength="25" class="form-control" />
+    </div>
+    <div class="form-group">
+      <button
+        type="submit"
+        class="btn btn-success btn-block mt-3"
+        (click)="isSignUp = false"
+      >
+        Confirm
+      </button>
+    </div>
+    <p class="form-group w-25">
+      By creating an account, you agree to our
+      <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.
+    </p>
+    <hr />
+    <p>Already have an account? <a href="#">Sign in</a></p>
+  </div>
+</div>

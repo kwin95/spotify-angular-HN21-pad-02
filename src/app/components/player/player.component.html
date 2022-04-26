@@ -1,0 +1,25 @@
+<div class="container-fluid p-0 m-0">
+  <div class="d-flex">
+    <app-nav-bar
+      *ngIf="myPlaylists"
+      [playlists]="myPlaylists"
+      (addPlaylist)="addNewPlaylist()"
+    ></app-nav-bar>
+
+    <app-dropdown-menu
+      title="{{ userInfo }}"
+      [options]="options"
+      (select)="onSelect($event)"
+      class="button-info"
+    ></app-dropdown-menu>
+    <div style="margin-left: 250px">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <ngx-spinner
+    [fullScreen]="true"
+    type="cog"
+    size="medium"
+    [color]="'#1DB954'"
+  ></ngx-spinner>
+</div>

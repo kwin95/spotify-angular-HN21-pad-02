@@ -1,0 +1,31 @@
+<div class="text-white position-relative track-detail">
+  <div class="d-flex ml-5 position-absolute track-detail-info">
+    <img
+      src="{{ track?.album?.images[1]?.url }}"
+      class="mr-5 track-detail-img"
+      alt="..."
+    />
+    <div class="d-flex flex-column justify-content-end pb-5">
+      <p class="h6 text-capitalize">Song</p>
+      <p class="h1" style="font-size: 96px">{{ track?.name }}</p>
+      <p class="h6 text-capitalize">
+        Release: {{ track?.album?.release_date }}
+      </p>
+      <p class="card-text h6">
+        Artist: {{ track?.artists[0]?.name }} • Time •
+        {{ track?.duration_ms | date: "mm : ss" }}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="pt-5 track-detail-btn pl-5">
+  <button class="btn btn-success mx-5 rounded-circle" *ngIf="isliked">
+    Liked:
+    <i class="far fa-heart"></i>
+  </button>
+  <button class="btn btn-outline-success mx-5" *ngIf="!isliked">
+    Add to Liked song:
+    <i class="far fa-heart rounded-circle"></i>
+  </button>
+  <button class="btn btn-success">Listen on Spotify</button>
+</div>

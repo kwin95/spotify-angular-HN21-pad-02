@@ -1,0 +1,118 @@
+<div class="container-fluid">
+  <div class="mt-4 ml-5">
+    <div class="rounded-pill bg-white d-flex pr-3 ml-5" style="width: 400px">
+      <i class="fas fa-search pl-3 pt-2 pr-1"></i>
+      <input
+        type="text"
+        class="form-control border-0"
+        placeholder=" Search artist, album, playlist, songs"
+        [(ngModel)]="queryString"
+        (input)="search()"
+      />
+      <button *ngIf="queryString != null" class="btn" (click)="clear()">
+        <span style="font-weight: bold">X</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="queryString != null">
+  <h3 class="pl-5 pt-3">Top results</h3>
+
+  <div>
+    <h4 class="pl-5 pt-5">Top Artist</h4>
+    <div class="d-flex flex-wrap ml-5">
+      <div *ngFor="let resultArtist of resultArtists; let i = index">
+        <div
+          class="ml-5 p-3 text-center border-primary mb-4"
+          routerLink="../artist/{{ resultArtist.id }}"
+          style="cursor: pointer; background-color: #222"
+        >
+          <img
+            class="rounded-pill"
+            [src]="
+              resultArtist.images.length != 0
+                ? resultArtist.images[2].url
+                : '../../assets/Music.jpg'
+            "
+            style="width: 200px; height: 200px"
+            alt=""
+          />
+          <p>{{ resultArtist.name | summary: 20 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h4 class="pl-5 pt-3">Top Songs</h4>
+    <div class="d-flex flex-wrap ml-5">
+      <div *ngFor="let resultTrack of resultTracks; let i = index">
+        <div
+          class="ml-5 p-3 text-center border-primary mb-4"
+          routerLink="../track/{{ resultTrack.id }}"
+          style="cursor: pointer; background-color: #222; width: 250px"
+        >
+          <img
+            class="rounded-pill"
+            [src]="
+              resultTrack.album.images.length != 0
+                ? resultTrack.album.images[2].url
+                : '../../assets/Music.jpg'
+            "
+            style="width: 200px; height: 200px"
+            alt=""
+          />
+          <p>{{ resultTrack.name | summary: 20 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h4 class="pl-5 pt-3">Top Playlists</h4>
+    <div class="d-flex flex-wrap">
+      <div *ngFor="let resultplaylist of resultPlaylists; let i = index">
+        <div
+          class="ml-5 p-3 text-center border-primary"
+          routerLink="../playlist/{{ resultplaylist.id }}"
+          style="cursor: pointer"
+        >
+          <img
+            [src]="
+              resultplaylist.images.length != 0
+                ? resultplaylist.images[0].url
+                : '../../assets/Music.jpg'
+            "
+            style="width: 200px; height: 200px"
+            alt=""
+          />
+          <p>{{ resultplaylist.name | summary: 20 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Album -->
+  <div>
+    <h4 class="pl-5 pt-3">Top Albums</h4>
+    <div class="d-flex flex-wrap">
+      <div *ngFor="let resultAlbum of resultAlbums; let i = index">
+        <div
+          class="ml-5 p-3 text-center border-primary"
+          routerLink="../albums/{{ resultAlbum.id }}"
+          style="cursor: pointer"
+        >
+          <img
+            [src]="
+              resultAlbum.images.length != 0
+                ? resultAlbum.images[2].url
+                : '../../assets/Music.jpg'
+            "
+            style="width: 200px; height: 200px"
+            alt=""
+          />
+          <p>{{ resultAlbum.name | summary: 20 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="mx-5 container-fluid">
+  <h3 class="ml-3 h4 mt-5">New Release</h3>
+  <div class="d-flex flex-wrap text-dark">
+    <div
+      class="card m-3 text-white-50"
+      *ngFor="let newRelease of newRleases; let i = index"
+      style="max-width: 250px; background-color: #101010"
+    >
+      <a
+        [routerLink]="['../albums', newRelease.id]"
+        class="text-white"
+        style="text-decoration: none"
+      >
+        <div class="border border-dark">
+          <img
+            [src]="newRelease.images[1].url"
+            class="card-img-top"
+            alt="..."
+            style="max-width: 250px"
+          />
+          <div class="card-body">
+            <h6 class="card-title">{{ newRelease.name | summary: 15 }}</h6>
+            <a
+              class="card-text text-white"
+              [routerLink]="['../artist', newRelease.artists[0].id]"
+            >
+              <i class="fas fa-microphone-alt"></i> •
+              {{ newRelease.artists[0].name | summary: 12 }}
+            </a>
+
+            <p class="card-text">
+              Release:
+              {{ newRelease.release_date | date }}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <h3 class="ml-3 pt-4 h4">Feature Playlists</h3>
+  <div class="d-flex flex-wrap text-dark">
+    <div
+      class="card m-3 text-white-50"
+      *ngFor="let featurePlaylist of featurePlayLists; let i = index"
+      style="max-width: 250px; background-color: #101010"
+    >
+      <a
+        [routerLink]="['../playlist', featurePlaylist.id]"
+        class="text-white"
+        style="text-decoration: none"
+      >
+        <div *ngIf="i < 10" class="border border-dark">
+          <img
+            [src]="featurePlaylist.images[0].url"
+            class="card-img-top"
+            alt="..."
+            style="max-width: 250px"
+          />
+          <div class="card-body">
+            <h6 class="card-title">{{ featurePlaylist.name | summary: 12 }}</h6>
+            <p class="card-text">
+              Desc : {{ featurePlaylist.description | summary: 23 }}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <h3 class="ml-3 h4 mt-4">Chill For U ( Suggess)</h3>
+
+  <div class="d-flex flex-wrap text-dark">
+    <div
+      class="card m-3 text-white-50"
+      *ngFor="let list of topLists; let i = index"
+      style="max-width: 250px; background-color: #101010"
+    >
+      <a
+        [routerLink]="['../playlist', list.id]"
+        class="text-white"
+        style="text-decoration: none"
+      >
+        <div class="border border-dark">
+          <img
+            [src]="list?.images[0]?.url"
+            class="card-img-top"
+            alt="..."
+            style="max-width: 250px"
+          />
+          <div class="card-body">
+            <h6 class="card-title">{{ list?.name | summary: 12 }}</h6>
+            <p class="card-text">
+              Desc : {{ list?.description | summary: 23 }}
+            </p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

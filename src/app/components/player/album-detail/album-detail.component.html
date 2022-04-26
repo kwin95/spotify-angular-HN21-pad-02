@@ -1,0 +1,54 @@
+<div class="album">
+  <div class="text-white position-relative album-detail border-bottom">
+    <div class="d-flex ml-5 position-absolute album-detail-info">
+      <img
+        src="{{ album?.images[1]?.url }}"
+        class="mr-5 album-detail-img"
+        alt="..."
+      />
+      <div class="d-flex flex-column justify-content-end pb-5">
+        <p class="h6 text-capitalize">{{ album?.album_type }}</p>
+        <p class="h1" style="font-size: 96px">{{ album?.name }}</p>
+        <p class="h6">
+          <a [routerLink]="['../../artist', albumId]" class="text-white">{{
+            album?.artists[0]?.name
+          }}</a>
+          -{{ album?.tracks?.total }} songs
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid album-detail-list">
+    <table class="table table-borderless text-white">
+      <thead class="">
+        <tr class="border-bottom row album-detail-header">
+          <th scope="col" class="col-1">#</th>
+          <th scope="col" class="col-7">TITLE</th>
+          <th scope="col" class="col-2">FOLLOW</th>
+
+          <th scope="col" class="text-center col-1">
+            <i class="fas fa-clock"></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="text-center"
+        *ngFor="let track of trackOfAlbum; let i = index"
+      >
+        <tr class="row border-bottom">
+          <td scope="row" class="pt-4 col-1 text-left">{{ i + 1 }}</td>
+          <td class="d-flex col-7">
+            <p class="mt-3">{{ track.name }}</p>
+          </td>
+          <td class="col-2 text-left pt-4 pl-4">
+            <i class="far fa-heart"></i>
+          </td>
+          <td class="col-2 text-left p-4">
+            {{ track.duration_ms | date: "mm :ss" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
