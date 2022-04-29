@@ -1,4 +1,3 @@
-import { Track } from "src/app/model/track";
 import { AuthService } from "src/app/services/auth.service";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
@@ -6,7 +5,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { Playlist } from "src/app/model/playlist";
-import { HttpHeaders } from "@angular/common/http";
 
 @Component({
   selector: "app-playlist-detail",
@@ -51,7 +49,6 @@ export class PlaylistDetailComponent implements OnInit {
           this.playlist = data;
           this.playlistFollow = data.followers.total;
           this.totalSong = data.tracks.items.length;
-          console.log(data);
         },
         function (err) {
           console.error(err);
@@ -93,13 +90,7 @@ export class PlaylistDetailComponent implements OnInit {
 
       this.authService.getAcessToken().subscribe((res) => {
         let token = res["access_token"];
-        let option = {
-          headers: new HttpHeaders({
-            Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          }),
-        };
+
         let userId = localStorage.getItem("userId");
         let userIds: any = [];
         userIds.push(userId);
@@ -122,7 +113,6 @@ export class PlaylistDetailComponent implements OnInit {
   searchSong() {
     this.spotifyService.searchSong(this.queryString).then((data) => {
       this.trackSearch = data.tracks.items;
-      console.log(this.trackSearch);
     });
   }
   clear() {

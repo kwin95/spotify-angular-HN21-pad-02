@@ -9,10 +9,7 @@ import { SpotifyService } from "src/app/services/spotify.service";
 })
 export class SearchComponent implements OnInit {
   queryString: string;
-  constructor(
-    private spotifyService: SpotifyService,
-    private spinner: NgxSpinnerService
-  ) {}
+  constructor(private spotifyService: SpotifyService) {}
   resultArtists: any;
   resultPlaylists: any;
   resultAlbums: any;
@@ -25,7 +22,6 @@ export class SearchComponent implements OnInit {
         this.resultPlaylists = data.playlists.items;
         this.resultAlbums = data.albums.items;
         this.resultTracks = data.tracks.items;
-        console.log(data);
       },
       function (err) {
         console.error(err);

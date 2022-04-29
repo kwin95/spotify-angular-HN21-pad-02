@@ -1,8 +1,9 @@
 import { AuthService } from "src/app/services/auth.service";
 import { ToastrService } from "ngx-toastr";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { LikeTrack } from "src/app/model/track";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-collections",
@@ -13,13 +14,19 @@ export class CollectionsComponent implements OnInit {
   constructor(
     private spotifyService: SpotifyService,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {}
   likeCollection: LikeTrack[] = [];
   totalSong: number;
   userName: string;
 
   ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 300);
     this.authService.getInforUser().then((data) => {
       this.userName = data.display_name;
     });
@@ -30,7 +37,6 @@ export class CollectionsComponent implements OnInit {
       (data) => {
         this.likeCollection = data.items;
         this.totalSong = data.items.length;
-        console.log(data.items);
       },
       function (err) {
         console.error(err);

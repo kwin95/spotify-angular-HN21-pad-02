@@ -1,9 +1,9 @@
 {
   "targets": {
-    "thanghk95-hn21-fr-pad-02": {
+    "thanghk95-hn21-frf-pad-02": {
       "hosting": {
         "Spotify-App": [
-          "thanghk95-hn21-fr-pad-02"
+          "thanghk95-hn21-frf-pad-02"
         ]
       }
     }

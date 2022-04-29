@@ -11,11 +11,7 @@ import { User } from "../../model/user";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  constructor(
-    private spotifyService: SpotifyService,
-    private router: Router,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
   isSignUp: boolean = false;
   ngOnInit(): void {
     this.getToken();
@@ -26,8 +22,6 @@ export class LoginComponent implements OnInit {
     if (!!token) {
       this.authService.defineAccessToken(token);
       this.authService.getInforUser().then((data) => {
-        console.log(data);
-
         if (!data.display_name) {
           localStorage.clear();
           this.router.navigateByUrl("/login");

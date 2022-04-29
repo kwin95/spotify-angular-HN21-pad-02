@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
 import { Artist } from "src/app/model/artist";
-import { Playlist } from "src/app/model/playlist";
+
 import { SpotifyService } from "src/app/services/spotify.service";
 
 @Component({
@@ -9,15 +10,22 @@ import { SpotifyService } from "src/app/services/spotify.service";
   styleUrls: ["./library.component.scss"],
 })
 export class LibraryComponent implements OnInit {
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(
+    private spotifyService: SpotifyService,
+    private spinner: NgxSpinnerService
+  ) {}
   followedPlaylists: any = [];
   artists: Artist[] = [];
   ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 300);
     let token = localStorage.getItem("token");
     this.spotifyService.getMyPlaylist(token).then(
       (data) => {
         this.followedPlaylists = data.items;
-        console.log(this.followedPlaylists);
       },
       function (err) {
         console.error(err);
@@ -25,7 +33,6 @@ export class LibraryComponent implements OnInit {
     );
     this.spotifyService.getArtistFollowed().then((data) => {
       this.artists = data.artists.items;
-      console.log(this.artists);
     });
   }
 }

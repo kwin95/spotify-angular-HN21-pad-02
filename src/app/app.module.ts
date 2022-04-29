@@ -1,12 +1,12 @@
+import { AppRoutingModule } from "./app-routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { MatDialogModule } from "@angular/material/dialog";
 
-import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./components/login/login.component";
 import { SpotifyService } from "./services/spotify.service";
@@ -23,7 +23,9 @@ import { FormsModule } from "@angular/forms";
 import { TrackComponent } from "./components/player/track/track.component";
 import { CollectionsComponent } from "./components/player/collections/collections.component";
 import { DialogComponent } from "./components/dialog/dialog.component";
-import { LibraryComponent } from './components/library/library.component';
+import { LibraryComponent } from "./components/library/library.component";
+import { EndUserAgreementComponent } from "./components/end-user-agreement/end-user-agreement.component";
+import { ServerErrorInterceptor } from "./guards/login.interceptor";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { LibraryComponent } from './components/library/library.component';
     CollectionsComponent,
     DialogComponent,
     LibraryComponent,
+    EndUserAgreementComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,15 @@ import { LibraryComponent } from './components/library/library.component';
     }),
   ],
   entryComponents: [DialogComponent],
-  providers: [SpotifyService, NavBarComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ServerErrorInterceptor,
+      multi: true,
+    },
+    SpotifyService,
+    NavBarComponent,
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
   bootstrap: [AppComponent],

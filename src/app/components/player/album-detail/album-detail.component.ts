@@ -27,7 +27,6 @@ export class AlbumDetailComponent implements OnInit {
       this.spotifyService.getAlbum(id).then(
         (data) => {
           this.album = data;
-          console.log(this.album);
         },
         function (err) {
           console.error(err);

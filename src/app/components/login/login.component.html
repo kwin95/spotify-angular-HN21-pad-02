@@ -24,17 +24,55 @@
       Signup
     </button>
   </div>
+  <div class="account mt-2 d-flex justify-content-center">
+    <div class="w-25 text-left border border-dark py-2 px-3 text-dark">
+      <p>User: testngspotify@gmail.com</p>
+      <p class="pr-5">P/w: test123qwer</p>
+    </div>
+  </div>
   <br />
 
   <div class="d-flex flex-column align-items-center" *ngIf="isSignUp">
     <h2>Create account</h2>
     <div class="form-group w-25">
       <label class="control-label">Your name</label>
-      <input type="text" maxlength="50" class="form-control" />
+      <input
+        type="text"
+        ngModel
+        name="userName"
+        required
+        #userName="ngModel"
+        class="form-control"
+        placeholder="Enter Your Name"
+      />
+      <div *ngIf="userName.touched && userName.errors">
+        <div class="alert alert-danger" *ngIf="userName.errors.required">
+          User name is required
+        </div>
+      </div>
     </div>
     <div class="form-group w-25">
       <label class="control-label">Email</label>
-      <input type="email" maxlength="50" class="form-control" />
+      <input
+        type="email"
+        maxlength="50"
+        class="form-control"
+        ngModel
+        name="emailName"
+        required
+        #emailName="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        placeholder="Enter Your Email"
+      />
+      <div *ngIf="emailName.touched && emailName.errors">
+        <div class="alert alert-danger" *ngIf="emailName.errors.required">
+          Email name is required
+        </div>
+        <div class="alert alert-danger" *ngIf="emailName.errors.pattern">
+          Email must contain at least one number and one uppercase and lowercase
+          letter, and at least 8 or more characters
+        </div>
+      </div>
     </div>
 
     <div class="form-group w-25">
@@ -44,8 +82,16 @@
         maxlength="25"
         class="form-control"
         placeholder="at least 6 characters"
-        length="40"
+        ngModel
+        name="password"
+        required
+        #password="ngModel"
       />
+      <div *ngIf="password.touched && password.errors">
+        <div class="alert alert-danger" *ngIf="password.errors.required">
+          Please enter your password
+        </div>
+      </div>
     </div>
     <div class="form-group w-25">
       <label class="control-label">Password again</label>
@@ -62,7 +108,8 @@
     </div>
     <p class="form-group w-25">
       By creating an account, you agree to our
-      <a href="#">Terms of Use</a> and our <a href="#">Privacy Policy</a>.
+      <a routerLink="/end-user-agreement">Terms of Use</a> and our
+      <a href="#">Privacy Policy</a>.
     </p>
     <hr />
     <p>Already have an account? <a href="#">Sign in</a></p>

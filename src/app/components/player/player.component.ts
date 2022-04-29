@@ -61,7 +61,6 @@ export class PlayerComponent implements OnInit {
     this.spotifyService.getMyPlaylist(token).then(
       (data) => {
         this.myPlaylists = data.items;
-        console.log(this.myPlaylists);
       },
       function (err) {
         console.error(err);

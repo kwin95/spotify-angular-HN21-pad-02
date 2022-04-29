@@ -6,7 +6,7 @@ import {
   UrlTree,
   Router,
 } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
+
 import { Observable } from "rxjs";
 import { AuthService } from "../services/auth.service";
 
@@ -14,6 +14,7 @@ import { AuthService } from "../services/auth.service";
   providedIn: "root",
 })
 export class LoginGuardGuard implements CanActivate {
+  constructor() {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -22,6 +23,8 @@ export class LoginGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
+    let token = localStorage.getItem("token");
+    if (token) return true;
     return false;
   }
 }

@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
     this.spotifyService.getNewRealease().then(
       (data) => {
         this.newRleases = data.albums.items;
-        console.log(this.newRleases);
       },
       function (err) {
         console.error(err);
@@ -28,7 +27,6 @@ export class HomeComponent implements OnInit {
     this.spotifyService.getTopLists().then(
       (data) => {
         this.topLists = data.playlists.items;
-        console.log(this.topLists);
       },
       function (err) {
         console.error(err);
@@ -38,7 +36,6 @@ export class HomeComponent implements OnInit {
     this.spotifyService.getFeaturePlaylist().then(
       (data) => {
         this.featurePlayLists = data.playlists.items;
-        console.log(this.featurePlayLists);
       },
       function (err) {
         console.error(err);

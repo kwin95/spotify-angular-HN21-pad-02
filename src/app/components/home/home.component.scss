@@ -1,0 +1,27 @@
+.btn-play{
+    opacity:0 ;
+    color: white;
+    top: 200px;
+    left:150px;
+    z-index: 10000000000;
+    font-size: 50px;
+    
+}
+.card-link{
+
+}
+.btn-play i{
+    background-color: #000;
+    outline: none;
+}
+.card-link:hover{
+    
+    box-shadow: -1px 4px 20px 1px  #1DB954;
+    transform: translateY(-10px);
+    transition: 0.4s ease-out;
+    
+}
+.card-link:hover .btn-play{
+
+    opacity: 1;
+}

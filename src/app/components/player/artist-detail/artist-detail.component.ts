@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { Track } from "src/app/model/track";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-artist-detail",
@@ -14,20 +15,25 @@ export class ArtistDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private spotifyService: SpotifyService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {}
   artist: Artist;
   trackOfArtist: Track[];
   artistId: string;
   checkFollow: boolean;
   ngOnInit() {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 300);
     this.route.params.subscribe((p) => {
       let artistId = p.id;
       this.isfollowArtist(artistId);
       this.spotifyService.getArtist(artistId).then(
         (data) => {
           this.artist = data;
-          console.log(this.artist);
         },
         function (err) {
           console.error(err);
@@ -35,7 +41,6 @@ export class ArtistDetailComponent implements OnInit {
       );
       this.spotifyService.getArtistTopTrack(artistId).then((data) => {
         this.trackOfArtist = data.tracks;
-        console.log(this.trackOfArtist);
       });
     });
   }

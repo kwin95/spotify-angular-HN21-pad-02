@@ -22,16 +22,6 @@ export class NavBarComponent implements OnInit {
   token: string;
   ngOnInit() {
     this.myPlaylists = this.playlists;
-    // let token = localStorage.getItem("token");
-    // this.spotifyService.getMyPlaylist(token).then(
-    //   (data) => {
-    //     this.myPlaylists = data.items;
-    //     console.log(this.myPlaylists);
-    //   },
-    //   function (err) {
-    //     console.error(err);
-    //   }
-    // );
   }
   ngOnChanges(changes: SimpleChanges) {
     this.myPlaylists = changes.playlists.currentValue;
