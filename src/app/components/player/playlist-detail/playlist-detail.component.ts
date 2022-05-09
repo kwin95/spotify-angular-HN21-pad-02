@@ -5,6 +5,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { Playlist } from "src/app/model/playlist";
+import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 
 @Component({
   selector: "app-playlist-detail",
@@ -17,7 +18,8 @@ export class PlaylistDetailComponent implements OnInit {
     private spotifyService: SpotifyService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private nav: NavBarComponent
   ) {
     this.checkFollowPlaylist();
   }
@@ -75,13 +77,15 @@ export class PlaylistDetailComponent implements OnInit {
 
   followPlaylist(id: string, playlistName: string) {
     this.toastr.success("followed", playlistName);
-    this.spotifyService.followPlaylist(id);
-    this.checkFollowPlaylist();
+    this.spotifyService.followPlaylist(id).then((res) => {
+      this.checkFollowPlaylist();
+    });
   }
   unfollowPlaylist(id: string, playlistName: string) {
     this.toastr.warning("Unfollow", playlistName);
-    this.spotifyService.unfollowPlaylist(id);
-    this.checkFollowPlaylist();
+    this.spotifyService.unfollowPlaylist(id).then((res) => {
+      this.checkFollowPlaylist();
+    });
   }
 
   checkFollowPlaylist() {
@@ -89,8 +93,6 @@ export class PlaylistDetailComponent implements OnInit {
       let id = p.id;
 
       this.authService.getAcessToken().subscribe((res) => {
-        let token = res["access_token"];
-
         let userId = localStorage.getItem("userId");
         let userIds: any = [];
         userIds.push(userId);

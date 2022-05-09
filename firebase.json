@@ -10,7 +10,7 @@
       ],
       "rewrites": [
         {
-          "source": "/login",
+          "source": "**",
           "destination": "/index.html"
         }
       ]

@@ -6,7 +6,10 @@ import {
   Output,
   SimpleChanges,
 } from "@angular/core";
+import { MatDialog } from "@angular/material";
+
 import { SpotifyService } from "src/app/services/spotify.service";
+import { DialogComponent } from "../dialog/dialog.component";
 
 @Component({
   selector: "app-nav-bar",
@@ -14,20 +17,46 @@ import { SpotifyService } from "src/app/services/spotify.service";
   styleUrls: ["./nav-bar.component.scss"],
 })
 export class NavBarComponent implements OnInit {
-  @Output() addPlaylist = new EventEmitter<string>();
-  @Input() playlists: any;
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(
+    private spotifyService: SpotifyService,
+
+    private dialogRef: MatDialog
+  ) {}
 
   myPlaylists: any = [];
   token: string;
+  userId: string;
   ngOnInit() {
-    this.myPlaylists = this.playlists;
-  }
-  ngOnChanges(changes: SimpleChanges) {
-    this.myPlaylists = changes.playlists.currentValue;
+    this.getPlaylist();
   }
 
+  getPlaylist() {
+    let token = localStorage.getItem("token");
+    this.spotifyService.getMyPlaylist(token).then(
+      (data) => {
+        this.myPlaylists = data.items;
+      },
+      function (err) {
+        console.error(err);
+      }
+    );
+  }
   addNewPlaylist() {
-    this.addPlaylist.emit();
+    const dialogRef = this.dialogRef.open(DialogComponent, {
+      data: {
+        playlistName: "",
+        playlistDesc: "",
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userId = localStorage.getItem("userId");
+        this.spotifyService
+          .createPlaylist(this.userId, result.playlistName, result.playlistDesc)
+          .then((res) => {
+            this.getPlaylist();
+          });
+      }
+    });
   }
 }

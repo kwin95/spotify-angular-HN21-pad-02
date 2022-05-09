@@ -1,13 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { DialogComponent } from "../dialog/dialog.component";
-import { MatDialog } from "@angular/material";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { Router } from "@angular/router";
 import { NgxSpinnerService } from "ngx-spinner";
-import { SpotifyService } from "src/app/services/spotify.service";
+
 import { Option } from "../player/dropdown-menu/dropdown-menu.component";
 import { AuthService } from "src/app/services/auth.service";
 import { ToastrService } from "ngx-toastr";
+
 @Component({
   selector: "app-player",
   templateUrl: "./player.component.html",
@@ -25,16 +24,17 @@ export class PlayerComponent implements OnInit {
     },
   ];
   myPlaylists: any;
+
   constructor(
-    private spotifyService: SpotifyService,
     private authService: AuthService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private dialogRef: MatDialog,
+
     private toastr: ToastrService
   ) {}
   userInfo: string;
   userId: string;
+
   ngOnInit() {
     this.spinner.show();
 
@@ -53,19 +53,6 @@ export class PlayerComponent implements OnInit {
         console.error(err);
       }
     );
-    this.getPlaylist();
-  }
-
-  getPlaylist() {
-    let token = localStorage.getItem("token");
-    this.spotifyService.getMyPlaylist(token).then(
-      (data) => {
-        this.myPlaylists = data.items;
-      },
-      function (err) {
-        console.error(err);
-      }
-    );
   }
   logout() {
     localStorage.clear();
@@ -74,29 +61,10 @@ export class PlayerComponent implements OnInit {
 
   onSelect(value) {
     if (value === 1) {
-      this.toastr.info("Developing.......");
+      this.toastr.info("This feature is comming soon.......");
     }
     if (value === 2) {
       this.logout();
     }
-  }
-  addNewPlaylist() {
-    const dialogRef = this.dialogRef.open(DialogComponent, {
-      data: {
-        playlistName: "",
-        playlistDesc: "",
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // this.playlistName = result.playlistName;
-        // this.playlistDesc = result.playlistDesc;
-        this.spotifyService
-          .createPlaylist(this.userId, result.playlistName, result.playlistDesc)
-          .then((res) => {
-            this.getPlaylist();
-          });
-      }
-    });
   }
 }

@@ -7,10 +7,10 @@ import Spotify from "spotify-web-api-js";
 export class AuthService {
   spotifyApi: Spotify.SpotifyWebApiJs = null;
 
-  // private client_Id = "f143bfa6c67845d8a07602e8fb560312"; // dev test
-  // private client_Secret = "60b16bff56814be3ba5d8010fbd6ff10";
-  private client_Id = "c7253f1e3dc54533819588fb25163f18"; // user deplpoy
-  private client_Secret = "6277e235244d45cf9c9186b0e0d62d46";
+  private client_Id = "f143bfa6c67845d8a07602e8fb560312"; // dev test
+  private client_Secret = "60b16bff56814be3ba5d8010fbd6ff10";
+  // private client_Id = "c7253f1e3dc54533819588fb25163f18"; // user deplpoy
+  // private client_Secret = "6277e235244d45cf9c9186b0e0d62d46";
 
   encoder = btoa(`${this.client_Id}:${this.client_Secret}`);
   public scope = [
@@ -43,9 +43,9 @@ export class AuthService {
     });
   }
   authozireAccount() {
-    // let redirect_uri = "http://localhost:4200/login";
-    const redirect_uri =
-      "https://thanghk95-hn21-frf-pad-02.firebaseapp.com/login";
+    let redirect_uri = "http://localhost:4200/login";
+    // const redirect_uri =
+    //   "https://thanghk95-hn21-frf-pad-02.firebaseapp.com/login";
 
     let authEndPoint = "https://accounts.spotify.com/authorize?";
     let responseType = "&response_type=token&show_dialog=true";
