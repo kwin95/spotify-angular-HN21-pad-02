@@ -1,12 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  SimpleChanges,
-} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material";
+import { observable } from "rxjs";
 
 import { SpotifyService } from "src/app/services/spotify.service";
 import { DialogComponent } from "../dialog/dialog.component";
@@ -19,7 +13,6 @@ import { DialogComponent } from "../dialog/dialog.component";
 export class NavBarComponent implements OnInit {
   constructor(
     private spotifyService: SpotifyService,
-
     private dialogRef: MatDialog
   ) {}
 

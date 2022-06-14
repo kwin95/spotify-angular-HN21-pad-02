@@ -5,7 +5,6 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { SpotifyService } from "src/app/services/spotify.service";
 import { Playlist } from "src/app/model/playlist";
-import { NavBarComponent } from "../../nav-bar/nav-bar.component";
 
 @Component({
   selector: "app-playlist-detail",
@@ -18,8 +17,7 @@ export class PlaylistDetailComponent implements OnInit {
     private spotifyService: SpotifyService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
-    private nav: NavBarComponent
+    private toastr: ToastrService
   ) {
     this.checkFollowPlaylist();
   }

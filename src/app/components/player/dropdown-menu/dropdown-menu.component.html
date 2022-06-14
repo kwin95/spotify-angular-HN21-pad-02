@@ -9,7 +9,7 @@
   </button>
   <div class="dropdown-menu" [ngClass]="{ show: show }" (click)="show = false">
     <button
-      class="dropdown-item pl-4"
+      class="dropdown-item pl-3"
       *ngFor="let option of options"
       [ngClass]="{ show: show }"
       (click)="onSelect(option.value)"
